@@ -1,0 +1,18 @@
+# Real environment files contain generated service passwords — never commit.
+.env
+.env.bak
+*.env.local
+
+# Jitsi runtime config/state (lives in ~/.jitsi-meet-cfg, but just in case)
+.jitsi-meet-cfg/
+storage/
+tmp/
+
+# Downloaded release archives
+stable-*
+jitsi-docker-jitsi-meet-*/
+
+# TLS material
+*.pem
+*.key
+*.crt
