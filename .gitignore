@@ -16,3 +16,5 @@ jitsi-docker-jitsi-meet-*/
 *.pem
 *.key
 *.crt
+.idea/
+/mcp 
