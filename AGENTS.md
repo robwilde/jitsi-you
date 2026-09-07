@@ -141,7 +141,7 @@ Current tuning worth knowing: `TZ=Australia/Brisbane` (`jitsi.env:21`), `ENABLE_
 - Host: Ubuntu/Debian x86_64, 2 GB RAM min (4 GB comfortable), 2 cores min (4 preferred — Prosody is single-threaded), 20 GB disk. Upload bandwidth is the real constraint: ≈0.2 Mbit/s at 180p, 0.5 at 360p, 2.5 at 720p (`jitsi-v1-setup-guide.md:33-38`).
 - Firewall steps use **ufw**; the guide contains no firewalld equivalents, so translate if the host differs (`jitsi-v1-setup-guide.md:56`).
 - Out of scope for v1: Jibri, Jigasi, Etherpad (`jitsi-v1-setup-guide.md:27`).
-- Git: `main`, `origin` = `git@github.com:robwilde/jitsi-you.git`, single commit so far ("Initial Jitsi Meet v1 setup: guide, .env template, custom-config.js") — sentence-case prose subjects, not Conventional Commits.
+- Git: `main`, `origin` = `git@github.com-robwilde:robwilde/jitsi-you.git` — sentence-case prose subjects, not Conventional Commits. The `github.com-robwilde` host alias is deliberate: `~/.ssh/config` maps bare `github.com` to a different work account (`rob-ee-wilde`) with `IdentitiesOnly yes`, so a plain `git@github.com:` URL authenticates as the wrong user and GitHub rejects the push with `Permission to robwilde/jitsi-you.git denied`. Do not "simplify" the URL back. Note `gh` cannot parse alias URLs — pass `--repo robwilde/jitsi-you` explicitly.
 
 ## Testing & QA
 
