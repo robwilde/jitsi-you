@@ -80,7 +80,8 @@ mkdir -p ~/.jitsi-meet-cfg/tmp/{web-crontabs,web-load-test}
 chmod 777 ~/.jitsi-meet-cfg/storage/{jibri,prosody,transcripts,web}
 chmod 777 ~/.jitsi-meet-cfg/tmp/{web-crontabs,web-load-test}
 
-# 4.5 Bandwidth/resolution overrides (appended to generated config.js on every start)
+# 4.5 Frontend overrides with no .env equivalent (appended to the generated
+#     config.js on every `web` start). Resolution/P2P live in .env — see §7.
 cp /path/to/custom-config.js ~/.jitsi-meet-cfg/web/custom-config.js
 
 # 4.6 Start
@@ -143,7 +144,7 @@ docker stats
 curl -s http://localhost:8080/colibri/stats | jq '{conferences, participants, bit_rate_download, bit_rate_upload, total_packets_lost}'
 ```
 
-Note the peak `bit_rate_upload` from JVB and `nload` outgoing. Your ISP upload must exceed that with margin; if not, set `config.resolution = 360` in `custom-config.js` and restart `web`. Also verify the link independently: `speedtest-cli` or `iperf3 -c <remote>` from the server.
+Note the peak `bit_rate_upload` from JVB and `nload` outgoing. Your ISP upload must exceed that with margin; if not, set `RESOLUTION=360` and `RESOLUTION_WIDTH=640` in `.env` and run `docker compose down && docker compose up -d`. Also verify the link independently: `speedtest-cli` or `iperf3 -c <remote>` from the server.
 
 Client-side sanity: in a call, press the connection indicator (top-left of your tile) → shows bitrate, resolution, packet loss.
 
@@ -152,8 +153,8 @@ Client-side sanity: in a call, press the connection indicator (top-left of your 
 ```bash
 docker compose ps                         # health
 docker compose logs -t -f jvb             # web | prosody | jicofo | jvb
-docker compose restart web                # after editing custom-config.js
-docker compose down && docker compose up -d   # after editing .env
+docker compose restart web                # after editing custom-config.js (channelLastN etc.)
+docker compose down && docker compose up -d   # after editing .env — including resolution/P2P
 ```
 
 **Upgrade:** re-run the `wget` from §4.1, unzip over the top ("overwrite all"), `docker compose pull && docker compose up -d`. Keep `~/.jitsi-meet-cfg` — it holds your cert, user accounts and custom config.
@@ -178,7 +179,7 @@ docker compose down && docker compose up -d   # after editing .env
 | Works on LAN, not remote (or vice-versa) | Only one IP in `JVB_ADVERTISE_IPS` | Both IPs, comma-separated |
 | Browser OK, iOS/Android app fails | Self-signed or staging cert / missing fullchain | §5 |
 | No login prompt appears | `.env` change not applied | `docker compose down && docker compose up -d` (`restart` reuses old containers and ignores `.env` edits) |
-| Choppy at 720p | Server upload saturated | `config.resolution = 360` |
+| Choppy at 720p | Server upload saturated | `RESOLUTION=360` + `RESOLUTION_WIDTH=640` in `.env`, then `down && up` |
 
 ## Open items to confirm
 

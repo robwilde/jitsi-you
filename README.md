@@ -6,7 +6,7 @@ Self-hosted [Jitsi Meet](https://jitsi.org) for a 3-person team. Local server fi
 |---|---|
 | [`jitsi-v1-setup-guide.md`](jitsi-v1-setup-guide.md) | Step-by-step install, cert cut-over, user accounts, test plan, bandwidth measurement, AWS notes |
 | [`jitsi.env`](jitsi.env) | Template `.env` for the `docker-jitsi-meet` release — placeholders only, no secrets |
-| [`custom-config.js`](custom-config.js) | Web overrides: 720p cap, P2P for 2-person calls, lastN=3 |
+| [`custom-config.js`](custom-config.js) | Web overrides with no `.env` equivalent: `channelLastN=3`, no third-party requests, no insecure-room-name warning. Resolution and P2P live in `jitsi.env` |
 
 ## Quick start
 
