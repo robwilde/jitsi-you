@@ -16,6 +16,7 @@ unzip stable-* && cd jitsi-docker-jitsi-meet-*
 cp ../jitsi.env .env && nano .env      # fill hostname, email, LAN IP, public IP
 ./gen-passwords.sh
 # create config dirs — see guide §4.4
+# check LAN clients can reach the hostname — see guide §3.3
 cp ../custom-config.js ~/.jitsi-meet-cfg/web/
 docker compose up -d
 ```
